@@ -29,6 +29,7 @@ body {
   box-align: center;
   -webkit-box-pack:center;
   transform: translateY(35vh);
+  min-width: 800px;
 }
 
 .word {

@@ -8,7 +8,6 @@ module Api
         hasDictionaryDef: true,
         minDictionaryCount: 50
       )
-
       render :json => @words.shuffle
     end
   end
