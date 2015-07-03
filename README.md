@@ -7,17 +7,15 @@
 ## Future Improvements/Features
 
 - [x] Have a timer
-- [ ] Have a point system
-- [ ] Leader board
+- [ ] Point systems for a leader board
 - [ ] Consider anagrams
-- [ ] Have a pop up modal for end game
-- [ ] Have a button to restart the game
-- [ ] Transition for letter input
+- [ ] Have a pop up modal to restart the game
 - [x] Transition for incorrect word
 - [ ] Transition for correct word
 - [ ] Tweet Scores?
 - [ ] Phone and Tablet support
 - [ ] Use Node.js instead
+- [ ] Difficulty options 
 
 
 Stuck? Inspect element to see the answer to the scrambled word!
