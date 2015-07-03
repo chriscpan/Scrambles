@@ -18,3 +18,6 @@
 - [] Tweet Scores?
 - [] Phone and Tablet support
 - [] Use Node.js instead
+
+
+Stuck? Inspect element to see the answer to the scrambled word!
