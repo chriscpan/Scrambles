@@ -7,8 +7,11 @@ Scrambles.Views.Game = Backbone.View.extend({
     $(document).bind('keydown', this.step.bind(this));
     this.idx = 0;
     this.currWord = "";
+    this.timer = 60;
     this.words = options.words;
     this.listenTo(this.words, 'sync', this.render);
+    this.countDown();
+    this.completed = 0;
   },
 
   render: function(){
@@ -88,6 +91,7 @@ Scrambles.Views.Game = Backbone.View.extend({
   resetWord: function() {
     this.currWord = "";
     $(".letter").remove();
+    this.completed += 1;
     this.render();
   },
 
@@ -95,6 +99,29 @@ Scrambles.Views.Game = Backbone.View.extend({
     if (this.idx >= this.words.length ) {
       var newWords = new Scrambles.Collections.Words({});
       newWords.fetch();
+    }
+  },
+
+  countDown: function() {
+    setInterval(function() {
+      console.log('hello');
+      if (this.timer <= 0 ) {
+        this.timeUp()
+      } else {
+        this.timer -= 1;
+        $('.time').html( this.timer + 's left');
+      }
+    }.bind(this), 1000);
+  },
+
+  timeUp: function() {
+    $(document).unbind('keydown', this.step.bind(this));
+    if (this.completed > 1 ) {
+      $('.time').html('Congrats! You got ' + this.completed + ' words!');
+    } else if (this.completed === 1) {
+      $('.time').html('You only got one word. =()');
+    } else {
+      $('.time').html('Better Luck Next Time');
     }
   }
 });
