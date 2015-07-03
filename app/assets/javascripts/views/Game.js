@@ -3,10 +3,6 @@ Scrambles.Views.Game = Backbone.View.extend({
 
   template: JST['GameView'],
 
-  events: {
-    'keydown': 'insertWord'
-  },
-
   initialize: function(options){
     $(document).bind('keydown', this.step.bind(this));
     this.idx = 0;
