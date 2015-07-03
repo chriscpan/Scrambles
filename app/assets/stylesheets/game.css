@@ -4,7 +4,6 @@ body {
   height: 45vh;
   font-family: sans-serif;
 }
-
 .group:after {
   clear:both;
   content: "";
@@ -75,7 +74,6 @@ body {
   background-color: #FF5050;
   color: white;
 }
-
 
 .stats {
   position: absolute;

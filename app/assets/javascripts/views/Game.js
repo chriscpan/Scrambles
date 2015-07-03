@@ -1,5 +1,5 @@
 Scrambles.Views.Game = Backbone.View.extend({
-  tagName: "div class=game-container tab-index='1'",
+  tagName: "div class=game-container",
 
   template: JST['GameView'],
 
@@ -7,7 +7,6 @@ Scrambles.Views.Game = Backbone.View.extend({
     $(document).bind('keydown', this.step.bind(this));
     this.idx = 0;
     this.currWord = "";
-    this.timer = 60;
     this.words = options.words;
     this.listenTo(this.words, 'sync', this.render);
     this.countDown();
@@ -46,7 +45,7 @@ Scrambles.Views.Game = Backbone.View.extend({
   insertLetter: function(letter) {
     $(".letter:contains('" + letter + "')").first().remove();
     $(".unscrambled").prepend("<span class='letter active'>" + letter + "</span>");
-    $(".unscrambled span:first-child").shake();
+    // $(".unscrambled span:first-child").shake();
     this.currWord += letter;
   },
 
@@ -103,10 +102,10 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   countDown: function() {
+    this.timer = 60;
     setInterval(function() {
-      console.log('hello');
       if (this.timer <= 0 ) {
-        this.timeUp()
+        this.timeUp();
       } else {
         this.timer -= 1;
         $('.time').html( this.timer + 's left');
@@ -115,11 +114,11 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   timeUp: function() {
-    $(document).unbind('keydown', this.step.bind(this));
+    $(document).unbind('keydown');
     if (this.completed > 1 ) {
       $('.time').html('Congrats! You got ' + this.completed + ' words!');
     } else if (this.completed === 1) {
-      $('.time').html('You only got one word. =()');
+      $('.time').html('You only got one word. =(');
     } else {
       $('.time').html('Better Luck Next Time');
     }
