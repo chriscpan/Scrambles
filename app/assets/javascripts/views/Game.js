@@ -157,7 +157,8 @@ Scrambles.Views.Game = Backbone.View.extend({
     this.points = 0;
     this.multiplier = 1;
     this.timer = 61;
-    this.idx += 1
+    this.idx += 1;
+    this.render();
     $('.points').html(this.points);
     $('.mult').html( this.multiplier + 'x' );
   }
