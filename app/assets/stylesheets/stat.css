@@ -1,0 +1,17 @@
+.stats {
+  -webkit-box-align: center;
+  display: -webkit-box;
+  box-align: center;
+  -webkit-box-pack:center;
+  transform: translateY(35vh);
+  min-width: 800px;
+  width: 100%;
+  min-width: 800px;
+  color: #b1970a;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.stat span {
+
+}

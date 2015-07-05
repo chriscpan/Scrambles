@@ -10,7 +10,7 @@ Scrambles.Routers.Router = Backbone.Router.extend({
   root: function() {
     var words = new Scrambles.Collections.Words();
     words.fetch();
-    var v = new Scrambles.Views.Game({
+    var v = new Scrambles.Views.GameViews({
       words: words
     });
     this._swapView(v);

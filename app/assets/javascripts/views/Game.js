@@ -1,7 +1,7 @@
 Scrambles.Views.Game = Backbone.View.extend({
   tagName: "div class=game-container",
 
-  template: JST['GameView'],
+  template: JST['Game'],
 
   initialize: function(options){
     $(document).bind('keydown', this.step.bind(this));
@@ -11,6 +11,8 @@ Scrambles.Views.Game = Backbone.View.extend({
     this.listenTo(this.words, 'sync', this.render);
     this.countDown();
     this.completed = 0;
+    this.points = 0;
+    this.multiplier = 1;
   },
 
   render: function(){
@@ -57,7 +59,11 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   isWord: function(){
-    return this.currWord === this.word;
+    if (this.currWord === this.word) {
+      this.increaseMultiplier();
+      this.increasePoints();
+      return true;
+    }
   },
 
   won: function() {
@@ -65,7 +71,7 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   checkIncorrect: function() {
-    if (this.currWord.length === this.word.length && !this.isWord()) {
+    if (this.currWord.length === this.word.length && this.currWord !== this.word) {
       $(".unscrambled").addClass('incorrect');
       $(".unscrambled").shake();
       setTimeout(function() {
@@ -102,25 +108,40 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   countDown: function() {
-    this.timer = 60;
+    this.timer = 61;
     setInterval(function() {
-      if (this.timer <= 0 ) {
-        this.timeUp();
-      } else {
-        this.timer -= 1;
-        $('.time').html( this.timer + 's left');
-      }
+      this.timeCheck();
+      // this.multiplierCheck();
     }.bind(this), 1000);
   },
 
   timeUp: function() {
     $(document).unbind('keydown');
     if (this.completed > 1 ) {
-      $('.time').html('Congrats! You got ' + this.completed + ' words!');
+      $('.stats').html('Congrats! You got ' + this.completed + ' words!');
     } else if (this.completed === 1) {
-      $('.time').html('You only got one word. =(');
+      $('.stats').html('You only got one word. =(');
     } else {
-      $('.time').html('Better Luck Next Time');
+      $('.stats').html('Better Luck Next Time');
     }
+  },
+
+  timeCheck: function() {
+    if (this.timer <= 0 ) {
+      this.timeUp();
+    } else {
+      this.timer -= 1;
+      $('.time').html( this.timer + 's left');
+    }
+  },
+
+  increaseMultiplier: function() {
+    this.multiplier += 1;
+    $('.mult').html( this.multiplier + 'x multiplier' );
+  },
+
+  increasePoints: function() {
+    this.points += this.word.length;
+    $('.points').html(this.points.toString() + ' points');
   }
 });

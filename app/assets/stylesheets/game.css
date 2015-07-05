@@ -76,12 +76,11 @@ body {
 }
 
 .stats {
-  position: absolute;
   width: 100%;
   min-width: 800px;
   color: #b1970a;
   font-size: 20px;
-  margin-top: 100px;
+  /*margin-top: 100px;*/
 }
 
 .stats span {
