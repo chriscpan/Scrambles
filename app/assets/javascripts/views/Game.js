@@ -50,7 +50,6 @@ Scrambles.Views.Game = Backbone.View.extend({
     $(".unscrambled").prepend("<span class='letter active'>" + letter + "</span>");
     // $(".unscrambled span:first-child").shake();
     this.currWord += letter;
-    // $('#modal-content').modal('show');
 
   },
 
