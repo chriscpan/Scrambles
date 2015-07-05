@@ -7,9 +7,10 @@
 ## Future Improvements/Features
 
 - [x] Have a timer
-- [ ] Point systems for a leader board
+- [x] Point systems
+- [ ] leader board
 - [ ] Consider anagrams
-- [ ] Have a pop up modal to restart the game
+- [x] Have a pop up modal to restart the game
 - [x] Transition for incorrect word
 - [ ] Transition for correct word
 - [ ] Tweet Scores?

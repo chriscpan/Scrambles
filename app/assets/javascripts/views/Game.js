@@ -5,6 +5,7 @@ Scrambles.Views.Game = Backbone.View.extend({
 
   initialize: function(options){
     $(document).bind('keydown', this.step.bind(this));
+    $('.play-again').bind('click', this.playAgain.bind(this));
     this.idx = 0;
     this.currWord = "";
     this.words = options.words;
@@ -49,6 +50,8 @@ Scrambles.Views.Game = Backbone.View.extend({
     $(".unscrambled").prepend("<span class='letter active'>" + letter + "</span>");
     // $(".unscrambled span:first-child").shake();
     this.currWord += letter;
+    // $('#modal-content').modal('show');
+
   },
 
   reset: function(){
@@ -116,13 +119,8 @@ Scrambles.Views.Game = Backbone.View.extend({
 
   timeUp: function() {
     $(document).unbind('keydown');
-    if (this.completed > 1 ) {
-      $('.stats').html('Congrats! You got ' + this.completed + ' words!');
-    } else if (this.completed === 1) {
-      $('.stats').html('You only got one word. =(');
-    } else {
-      $('.stats').html('Better Luck Next Time');
-    }
+    $('.end-points').html('You got ' + this.points + ' points!');
+    $('#modal-content').modal('show');
   },
 
   timeCheck: function() {
@@ -130,17 +128,38 @@ Scrambles.Views.Game = Backbone.View.extend({
       this.timeUp();
     } else {
       this.timer -= 1;
-      $('.time').html( this.timer + 's left');
+      $('.time').html( this.timer + 's');
     }
   },
 
   increaseMultiplier: function() {
     this.multiplier += 1;
-    $('.mult').html( this.multiplier + 'x multiplier' );
+    $('.mult').html( this.multiplier + 'x' );
   },
 
   increasePoints: function() {
     this.points += this.word.length * this.multiplier;
-    $('.points').html(this.points.toString() + ' points');
+    $('.points').html(this.points);
+  },
+
+  playAgain: function() {
+    console.log('hello')
+    this.resetGame();
+    $('#modal-content').modal('hide');
+  },
+
+  resetGame: function() {
+    $(document).bind('keydown', this.step.bind(this));
+    this.resetStats();
+  },
+
+  resetStats: function() {
+    this.completed = 0;
+    this.points = 0;
+    this.multiplier = 1;
+    this.timer = 61;
+    this.idx += 1
+    $('.points').html(this.points);
+    $('.mult').html( this.multiplier + 'x' );
   }
 });
