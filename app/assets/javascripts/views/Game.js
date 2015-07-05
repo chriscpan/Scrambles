@@ -60,8 +60,8 @@ Scrambles.Views.Game = Backbone.View.extend({
 
   isWord: function(){
     if (this.currWord === this.word) {
-      this.increaseMultiplier();
       this.increasePoints();
+      this.increaseMultiplier();
       return true;
     }
   },
@@ -111,7 +111,6 @@ Scrambles.Views.Game = Backbone.View.extend({
     this.timer = 61;
     setInterval(function() {
       this.timeCheck();
-      // this.multiplierCheck();
     }.bind(this), 1000);
   },
 
@@ -141,7 +140,7 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   increasePoints: function() {
-    this.points += this.word.length;
+    this.points += this.word.length * this.multiplier;
     $('.points').html(this.points.toString() + ' points');
   }
 });
