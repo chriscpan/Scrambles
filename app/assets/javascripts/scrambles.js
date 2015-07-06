@@ -22,8 +22,4 @@ $(document).ready(function(){
     });
     return this;
   };
-
-  $('#modal-content').on('shown.bs.modal', function () {
-      $("#txtname").focus();
-  });
 });

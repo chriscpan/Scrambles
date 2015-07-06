@@ -3,10 +3,6 @@ Scrambles.Views.Stat = Backbone.View.extend({
 
   template: JST['Stat'],
 
-  initialize: function(){
-    Scrambles.timer = 0;
-  },
-
   render: function(){
     var content = this.template({
 
