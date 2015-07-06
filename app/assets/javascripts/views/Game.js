@@ -49,7 +49,7 @@ Scrambles.Views.Game = Backbone.View.extend({
     $(".letter:contains('" + letter + "')").first().remove();
     $(".unscrambled").prepend("<span class='letter active'>" + letter + "</span>");
     // $(".unscrambled span:first-child").shake();
-    this.currWord += xletter;
+    this.currWord += letter;
 
   },
 
