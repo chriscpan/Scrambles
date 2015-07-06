@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require underscore
+//= require jquery.serializejson.min.js
 //= require backbone
 //= require bootstrap
 //= require scrambles

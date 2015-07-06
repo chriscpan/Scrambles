@@ -1,3 +1,6 @@
+li {
+  list-style: none;
+}
 #modal-dialog {
   width: 400px;
   margin-top: 10%;
@@ -11,6 +14,7 @@
   font-weight: 800;
   font-size: 30px;
 }
+
 .modal-content {
   text-align: center;
 }
@@ -26,7 +30,6 @@
   border-radius: 4px;
   padding: 20px 60px;
   border: none;
-  // margin: 30px;
   font-weight: 800;
   font-size: 20px;
 }
@@ -34,4 +37,21 @@
 #modal-button.score {
   padding: 10px 30px;
   font-size: 15px;
+}
+
+.name {
+  float: left;
+}
+
+.highscores {
+  float:right;
+}
+
+.head {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#txtname{
+  width: 200px;
 }

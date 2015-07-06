@@ -5,21 +5,21 @@ Scrambles.Views.Game = Backbone.View.extend({
 
   initialize: function(options){
     $(document).bind('keydown', this.step.bind(this));
-    $('.play-again').bind('click', this.playAgain.bind(this));
+    this.words = options.words;
+    this.scores = options.scores;
+    this.listenTo(this.words, 'sync', this.render);
     this.idx = 0;
     this.currWord = "";
-    this.words = options.words;
-    this.listenTo(this.words, 'sync', this.render);
     this.countDown();
     this.completed = 0;
-    this.points = 0;
+    Scrambles.points = 0;
     this.multiplier = 1;
+    this.doOnce = true;
   },
 
   render: function(){
     if (this.words.models[this.idx]){
       this.word = this.words.models[this.idx].get('word').toUpperCase();
-      console.log(this.word);
     }
     var content = this.template({
       words: _.shuffle(this.word)
@@ -60,16 +60,23 @@ Scrambles.Views.Game = Backbone.View.extend({
     }.bind(this), 1000);
   },
 
+  resetWord: function() {
+    this.currWord = "";
+    $(".letter").remove();
+    this.completed += 1;
+    this.render();
+  },
+
+  won: function() {
+    $(".unscrambled").addClass('correct');
+  },
+
   isWord: function(){
     if (this.currWord === this.word) {
       this.increasePoints();
       this.increaseMultiplier();
       return true;
     }
-  },
-
-  won: function() {
-    $(".unscrambled").addClass('correct');
   },
 
   checkIncorrect: function() {
@@ -95,13 +102,6 @@ Scrambles.Views.Game = Backbone.View.extend({
     $(".scrambled").append("<span class='letter'>" + letter + "</span>");
   },
 
-  resetWord: function() {
-    this.currWord = "";
-    $(".letter").remove();
-    this.completed += 1;
-    this.render();
-  },
-
   checkIdx: function() {
     if (this.idx >= this.words.length ) {
       var newWords = new Scrambles.Collections.Words({});
@@ -117,9 +117,24 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   timeUp: function() {
+    $('.play-again').bind('click', this.playAgain.bind(this));
     $(document).unbind('keydown');
-    $('.end-points').html('You got ' + this.points + ' points!');
+    $('.end-points').html('You got ' + Scrambles.points + ' points!');
+    if (this.isHighScore()){
+      this.doOnce = false;
+      $('.form-container').html("<form class='score-form'><input type='text' id='txtname' name='name' placeholder='Congrats! Enter your name!' /></form>");
+    }
     $('#modal-content').modal('show');
+  },
+
+  isHighScore: function() {
+    if ( (_.last(this.scores.models) || this.scores.models.length === 0) &&
+      this.doOnce &&
+      (this.scores.models.length < 10 ||
+        this.scores.models[9].get('points') < Scrambles.points)
+        ){
+      return true;
+    }
   },
 
   timeCheck: function() {
@@ -137,12 +152,13 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   increasePoints: function() {
-    this.points += this.word.length * this.multiplier;
-    $('.points').html(this.points);
+    Scrambles.points += this.word.length * this.multiplier;
+    $('.points').html(Scrambles.points);
   },
 
   playAgain: function() {
-    console.log('hello')
+    this.doOnce = true;
+    $('.form-container').html('');
     this.resetGame();
     $('#modal-content').modal('hide');
   },
@@ -154,12 +170,12 @@ Scrambles.Views.Game = Backbone.View.extend({
 
   resetStats: function() {
     this.completed = 0;
-    this.points = 0;
+    Scrambles.points = 0;
     this.multiplier = 1;
     this.timer = 61;
     this.idx += 1;
     this.render();
-    $('.points').html(this.points);
+    $('.points').html(Scrambles.points);
     $('.mult').html( this.multiplier + 'x' );
   }
 });
