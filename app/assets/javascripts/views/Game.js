@@ -35,6 +35,7 @@ Scrambles.Views.Game = Backbone.View.extend({
       this.insertLetter(letter);
       this.checkIncorrect();
       if (this.isWord(this.currWord)) {
+        this.checkIdx();
         this.reset();
       }
     }
