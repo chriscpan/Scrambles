@@ -11,7 +11,6 @@ Scrambles.Views.Game = Backbone.View.extend({
     this.idx = 0;
     this.currWord = "";
     this.countDown();
-    this.completed = 0;
     Scrambles.points = 0;
     this.multiplier = 1;
     this.doOnce = true;
@@ -64,7 +63,6 @@ Scrambles.Views.Game = Backbone.View.extend({
   resetWord: function() {
     this.currWord = "";
     $(".letter").remove();
-    this.completed += 1;
     this.render();
   },
 
@@ -170,7 +168,6 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   resetStats: function() {
-    this.completed = 0;
     Scrambles.points = 0;
     this.multiplier = 1;
     this.timer = 61;
