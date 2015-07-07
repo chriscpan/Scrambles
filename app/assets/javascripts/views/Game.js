@@ -109,7 +109,7 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   countDown: function() {
-    this.timer = 5;
+    this.timer = 61;
     setInterval(function() {
       this.timeCheck();
     }.bind(this), 1000);
@@ -170,7 +170,7 @@ Scrambles.Views.Game = Backbone.View.extend({
   resetStats: function() {
     this.points = 0;
     this.multiplier = 1;
-    this.timer = 5;
+    this.timer = 61;
     this.idx += 1;
     this.render();
     $('.points').html(this.points);
