@@ -11,7 +11,7 @@ Scrambles.Views.Game = Backbone.View.extend({
     this.idx = 0;
     this.currWord = "";
     this.countDown();
-    Scrambles.points = 0;
+    this.points = 0;
     this.multiplier = 1;
     this.doOnce = true;
   },
@@ -109,7 +109,7 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   countDown: function() {
-    this.timer = 61;
+    this.timer = 5;
     setInterval(function() {
       this.timeCheck();
     }.bind(this), 1000);
@@ -118,7 +118,7 @@ Scrambles.Views.Game = Backbone.View.extend({
   timeUp: function() {
     $('.play-again').bind('click', this.playAgain.bind(this));
     $(document).unbind('keydown');
-    $('.end-points').html('You got ' + Scrambles.points + ' points!');
+    $('.end-points').html('You got ' + this.points + ' points!');
     if (this.isHighScore()){
       this.doOnce = false;
       $('.form-container').html("<form class='score-form'><input type='text' id='txtname' name='name' placeholder='Congrats! Enter your name!' /></form>");
@@ -130,7 +130,7 @@ Scrambles.Views.Game = Backbone.View.extend({
     if ( (_.last(this.scores.models) || this.scores.models.length === 0) &&
       this.doOnce &&
       (this.scores.models.length < 10 ||
-        this.scores.models[9].get('points') < Scrambles.points)
+        this.scores.models[9].get('points') < this.points)
         ){
       return true;
     }
@@ -151,8 +151,8 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   increasePoints: function() {
-    Scrambles.points += this.word.length * this.multiplier;
-    $('.points').html(Scrambles.points);
+    this.points += this.word.length * this.multiplier;
+    $('.points').html(this.points);
   },
 
   playAgain: function() {
@@ -168,12 +168,12 @@ Scrambles.Views.Game = Backbone.View.extend({
   },
 
   resetStats: function() {
-    Scrambles.points = 0;
+    this.points = 0;
     this.multiplier = 1;
-    this.timer = 61;
+    this.timer = 5;
     this.idx += 1;
     this.render();
-    $('.points').html(Scrambles.points);
+    $('.points').html(this.points);
     $('.mult').html( this.multiplier + 'x' );
   }
 });

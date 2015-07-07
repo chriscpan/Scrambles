@@ -20,8 +20,9 @@ Scrambles.Views.LeadBoard = Backbone.View.extend({
 
   createScore: function(event) {
     var data = $(event.target).serializeJSON();
+    var points = parseInt($('.points').text());
     var score = new Scrambles.Models.Score({
-      points: Scrambles.points
+      points: points
     });
     score.save(data, {
       success: function() {
